@@ -1,0 +1,38 @@
+{
+  "name": "search-extension",
+  "title": "Search extension",
+  "description": "Adds search custom operators",
+  "publisher": "farhan",
+  "icon": "https://images.ctfassets.net/le3mxztn6yoo/t4Qpcq5kA0AYM24Ws4mOk/4edf5502a936bbec90c262fa00355aed/sourcegraph-mark.png",
+  "activationEvents": [
+    "*"
+  ],
+  "contributes": {
+    "actions": [],
+    "menus": {
+      "editor/title": [],
+      "commandPalette": []
+    },
+    "configuration": {}
+  },
+  "version": "0.0.0-DEVELOPMENT",
+  "license": "MIT",
+  "main": "dist/extension.js",
+  "scripts": {
+    "tslint": "tslint -p tsconfig.json './src/**/*.ts'",
+    "typecheck": "tsc -p tsconfig.json",
+    "build": "parcel build --experimental-scope-hoisting --out-file extension.js src/extension.ts",
+    "serve": "parcel serve --no-hmr --no-source-maps --out-file extension.js src/extension.ts",
+    "watch:typecheck": "tsc -p tsconfig.json -w",
+    "watch:build": "tsc -p tsconfig.dist.json -w",
+    "sourcegraph:prepublish": "npm run build"
+  },
+  "devDependencies": {
+    "@sourcegraph/tsconfig": "^3.0.0",
+    "@sourcegraph/tslint-config": "^12.0.0",
+    "parcel-bundler": "^1.10.3",
+    "sourcegraph": "^18.0.0",
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.3"
+  }
+}
