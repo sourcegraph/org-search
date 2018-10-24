@@ -1,10 +1,16 @@
 import * as sourcegraph from 'sourcegraph'
 
 export function activate(): void {
-   sourcegraph.search.registerSearchProvider({
+   sourcegraph.search.registerQueryTransformProvider({
        transformQuery: (query: string) => {
-           if (query.match('org:sourcegraph')) {
-               return query.replace(/\borg:sourcegraph\b/g, 'r:sourcegraph/')
+           const orgRegex = /\borg:(.\w*)/
+           if (query.match(orgRegex)) {
+               const orgFilter = query.match(orgRegex)
+               const org = orgFilter && orgFilter.length >= 1 ? orgFilter[1] : ''
+               if (org !== '') {
+                   return query.replace(orgRegex  , `r:${org}/`)
+               }
+
            }
            return query
         }
