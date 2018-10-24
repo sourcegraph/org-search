@@ -3,9 +3,8 @@ import * as sourcegraph from 'sourcegraph'
 export function activate(): void {
    sourcegraph.search.registerSearchProvider({
        transformQuery: (query: string) => {
-           if (query.includes('org:sourcegraph')) {
-               const q = query.replace(/\borg:sourcegraph\b/g, 'r:sourcegraph/')
-               return q
+           if (query.match('org:sourcegraph')) {
+               return query.replace(/\borg:sourcegraph\b/g, 'r:sourcegraph/')
            }
            return query
         }
