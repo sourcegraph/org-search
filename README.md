@@ -1,6 +1,6 @@
 # Search extension
 
-Adds search custom operators
+Replaces `org:sourcegraph` with `r:sourcegraph/` in Sourcegraph search queries. Example of a Soucegraph extension using the search API.
 
 ## Prerequisites
 
