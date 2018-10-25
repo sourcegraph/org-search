@@ -3,12 +3,12 @@ import * as sourcegraph from 'sourcegraph'
 export function activate(): void {
    sourcegraph.search.registerQueryTransformer({
        transformQuery: (query: string) => {
-           const javaImportsRegex = /\bjava.imports:([^\s]*)/i
-           if (query.match(javaImportsRegex)) {
-               const javaImportsFilter = query.match(javaImportsRegex)
-               const javaPkg = javaImportsFilter && javaImportsFilter.length >= 1 ? javaImportsFilter[1] : ''
-               const javaImport = '^import(.*)' + javaPkg + '[^\\s]*'
-               return query.replace(javaImportsRegex  , `(${javaImport})`)
+           const phpImportsRegex = /\bphp.imports:([^\s]*)/i
+           if (query.match(phpImportsRegex)) {
+               const phpImportsFilter = query.match(phpImportsRegex)
+               const phpPkg = phpImportsFilter && phpImportsFilter.length >= 1 ? phpImportsFilter[1] : ''
+               const phpImport = '\buse(.*)' + phpPkg + '[^\\s]*;'
+               return query.replace(phpImportsRegex  , `(${phpImport})`)
            }
            return query
         }
