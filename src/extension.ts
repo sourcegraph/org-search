@@ -3,12 +3,13 @@ import * as sourcegraph from 'sourcegraph'
 export function activate(): void {
    sourcegraph.search.registerQueryTransformer({
        transformQuery: (query: string) => {
-           const orgRegex = /\borg:(\w*)/
-           if (query.match(orgRegex)) {
-               const orgFilter = query.match(orgRegex)
-               const org = orgFilter && orgFilter.length >= 1 ? orgFilter[1] : ''
-               return query.replace(orgRegex  , `r:${org}/`)
-
+           const jsImportsRegex = /\bjs.imports:([^\s]*)/
+           if (query.match(jsImportsRegex)) {
+               const jsImportsFilter = query.match(jsImportsRegex)
+               const jsPkg = jsImportsFilter && jsImportsFilter.length >= 1 ? jsImportsFilter[1] : ''
+               const es6Import = '^import(.*)\''+jsPkg+'[^\\s]*\''
+               const commonJSImport = 'require\\(\'' +jsPkg+'[^\\s]*\'\\)'
+               return query.replace(jsImportsRegex  , `(${es6Import}|${commonJSImport})`)
            }
            return query
         }
