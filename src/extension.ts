@@ -1,7 +1,7 @@
 import * as sourcegraph from 'sourcegraph'
 
 export function activate(): void {
-   sourcegraph.search.registerQueryTransformProvider({
+   sourcegraph.search.registerQueryTransformer({
        transformQuery: (query: string) => {
            const orgRegex = /\borg:(\w*)/
            if (query.match(orgRegex)) {
