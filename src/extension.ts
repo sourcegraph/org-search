@@ -3,14 +3,12 @@ import * as sourcegraph from 'sourcegraph'
 export function activate(): void {
    sourcegraph.search.registerQueryTransformer({
        transformQuery: (query: string) => {
-           const pyImportsRegex = /\bpy.imports:([^\s]*)/i
-           if (query.match(pyImportsRegex)) {
-               const pyImportsFilter = query.match(pyImportsRegex)
-               const pyPkg = pyImportsFilter && pyImportsFilter.length >= 1 ? pyImportsFilter[1] : ''
-               const singleImport = '^import\\s' + pyPkg + '$'
-               const namedImport = '^import\\s' + pyPkg + '\\sas\\s[^\\s]*'
-               const scopedImport = '^from\\s(.*)\\simport\\s(.*)' + pyPkg
-               return query.replace(pyImportsRegex  , `(${singleImport}|${namedImport}|${scopedImport})`)
+           const javaImportsRegex = /\bjava.imports:([^\s]*)/i
+           if (query.match(javaImportsRegex)) {
+               const javaImportsFilter = query.match(javaImportsRegex)
+               const javaPkg = javaImportsFilter && javaImportsFilter.length >= 1 ? javaImportsFilter[1] : ''
+               const javaImport = '^import(.*)' + javaPkg + '[^\\s]*'
+               return query.replace(javaImportsRegex  , `(${javaImport})`)
            }
            return query
         }
