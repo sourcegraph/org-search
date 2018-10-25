@@ -3,7 +3,7 @@ import * as sourcegraph from 'sourcegraph'
 export function activate(): void {
    sourcegraph.search.registerQueryTransformer({
        transformQuery: (query: string) => {
-           const jsImportsRegex = /\bjs.imports:([^\s]*)/
+           const jsImportsRegex = /\bjs.depends:([^\s]*)/
            if (query.match(jsImportsRegex)) {
                const jsImportsFilter = query.match(jsImportsRegex)
                const jsPkg = jsImportsFilter && jsImportsFilter.length >= 1 ? jsImportsFilter[1] : ''
