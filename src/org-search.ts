@@ -14,5 +14,3 @@ export function activate(): void {
         }
    })
 }
-
-// See https://about.sourcegraph.com/blog/extension-authoring for instructions and examples.
